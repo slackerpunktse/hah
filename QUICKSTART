@@ -1,7 +1,7 @@
 from 'what?' to 'hah' in 30 seconds.
 
 + make sure 'hah.py' is on your $PYTHONPATH>
-    $> export PYTHONPATH=/Users/fredrik/workspace/hah
+    $> export PYTHONPATH=/Users/fredrik/workspace/hah/lib
     $> # ymmv.
 
 + make sure irclib is installed>

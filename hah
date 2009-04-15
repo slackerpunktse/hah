@@ -3,8 +3,10 @@
 import hah
 
 if __name__ == "__main__":
-	host = 'irc.efnet.pl'
-	nick = 'hah'
+	nick    = 'hah'
+	channel = '#bot.slacker.se'
+	server  = 'irc.efnet.ru'
 
-	hah = Hah(nick, host)
-	hah.unleash()
+	bot = hah.Hah(nick, channel, server)
+	bot.unleash()
+
