@@ -1,0 +1,10 @@
+#!/usr/bin/env python
+
+import hah
+
+if __name__ == "__main__":
+	host = 'irc.efnet.pl'
+	nick = 'hah'
+
+	hah = Hah(nick, host)
+	hah.unleash()
