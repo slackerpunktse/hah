@@ -5,14 +5,16 @@ import sys
 import socket
 import string
 
-HOST="irc.freenode.net"
+HOST="irc.efnet.pl"
 PORT=6667
-NICK="MauBot"
-IDENT="maubot"
-REALNAME="MauritsBot"
+
+NICK="twitor"
+IDENT="dashdashdash"
+REALNAME="aha!"
+
 readbuffer=""
 
-s=socket.socket( )
+s = socket.socket( )
 s.connect((HOST, PORT))
 s.send("NICK %s\r\n" % NICK)
 s.send("USER %s %s bla :%s\r\n" % (IDENT, HOST, REALNAME))
@@ -28,3 +30,5 @@ while 1:
 
         if(line[0]=="PING"):
             s.send("PONG %s\r\n" % line[1])
+        else:
+            print line
