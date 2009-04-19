@@ -1,3 +1,0 @@
-FROM SERVER: :lenbust!~fredrik@78.147.39.59 PRIVMSG #bot.slacker.se :hello.
-command: pubmsg, source: lenbust!~fredrik@78.147.39.59, target: #bot.slacker.se, arguments: ['hello.']
-<irclib.ServerConnection instance at 0x761c0>: ['hello.']

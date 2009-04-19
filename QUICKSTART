@@ -1,15 +1,11 @@
 from 'what?' to 'hah' in 30 seconds.
 
-+ make sure 'hah.py' is on your $PYTHONPATH>
-    $> export PYTHONPATH=/Users/fredrik/workspace/hah/lib
-    $> # ymmv.
-
 + make sure irclib is installed>
-    $> cd lib/python-irclib-0.4.8
+    $> # http://sourceforge.net/projects/python-irclib/
     $> sudo python setup.py install
 
 + (optional:) make sure the tests pass>
 	$> python tests/test_hah.py
 
 + go>
-	$> python hah
+	$> PYTHONPATH=lib python hah

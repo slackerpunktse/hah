@@ -1,2 +1,0 @@
-FROM SERVER: :lenbust!~fredrik@78.147.39.59 PRIVMSG #bot.slacker.se :ACTION dansar
-command: ctcp, source: lenbust!~fredrik@78.147.39.59, target: #bot.slacker.se, arguments: ['ACTION', 'dansar']
