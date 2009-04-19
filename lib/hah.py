@@ -53,12 +53,11 @@ class Hah(ircbot.SingleServerIRCBot):
 	# parse message, react to messages matching regex.
 	def twitterism(self, c, msg, nick, channel):
 		match = self.twitter_re.match(msg)
-		time.sleep(10)
 		if (match):
 			update = match.group(1)
 			if (len(update) > 140):
 				print 'update too long: not posted.'
-				time.sleep(10) # simulate thought.
+				time.sleep(1) # simulate thought.
 				c.privmsg(channel, "%s: brevity is the soul of wit." % nick)
 				return
 			update = "[%s] %s" % (nick, update)
