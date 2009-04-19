@@ -5,8 +5,10 @@ import hah
 if __name__ == "__main__":
 	nick    = 'hah'
 	channel = '#bot.slacker.se'
-	server  = 'irc.efnet.ru'
+	server  = 'localhost'
+	# twitter credentials.
+	user = ''
+	pwd = ''
 
-	bot = hah.Hah(nick, channel, server)
+	bot = hah.Hah(nick, channel, server, user, pwd)
 	bot.unleash()
-
