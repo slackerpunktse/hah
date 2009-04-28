@@ -3,6 +3,7 @@ import irclib
 import urllib
 import urllib2
 import time
+import sys
 import re
 import base64
 import thread
@@ -25,8 +26,9 @@ class Hah(ircbot.SingleServerIRCBot):
 		print 'unleashed.'
 		try:
 			self.start()
-		except KeyboardInterrupt: print "hyorgh!"
-
+		except KeyboardInterrupt:
+			print "hyorgh!"
+			sys.exit(0)
 
 	def on_welcome(self, c, e):
 		print 'joining %s' % self.channel
