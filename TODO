@@ -1,1 +1,2 @@
 serially, this latin-1 bizniz is getting silly. time to fix those åäö!
+catch exception: urllib2.URLError: <urlopen error (110, 'Connection timed out')>
