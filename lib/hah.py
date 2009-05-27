@@ -1,8 +1,13 @@
+# hah.
 from timing import timing
+import twitter
+
+# libs,
 import ircbot
 import irclib
 import urllib
 import urllib2
+# core.
 import time, sys, re
 import thread, signal, yaml, base64
 
@@ -33,6 +38,8 @@ class Hah(ircbot.SingleServerIRCBot):
 			sys.stderr.write("yaml load failed for key %s.\n" % key)
 			sys.exit(1)
 
+	def print_time(self):
+		sys.stdout.write(time.asctime())
 
 	@timing
 	def unleash(self):
@@ -49,8 +56,8 @@ class Hah(ircbot.SingleServerIRCBot):
 	    x = time.time()
 	    print 'heartbeat> %s' % x
     
-	@timing
 	def on_welcome(self, c, e):
+		print_time()
 		print 'joining %s' % self.channel
 		c.join(self.channel)
     
@@ -64,46 +71,16 @@ class Hah(ircbot.SingleServerIRCBot):
 			nick = irclib.nm_to_n(e.source())
 			msg = e.arguments()[1]
 			update = nick + " " + msg
-			thread.start_new.thread(self.twitter_post, update)
-    
+			thread.start_new.thread(twitter.twitter_post, update)
+
 	@timing
 	def on_pubmsg(self, c, e):
 		channel = e.target()
 		nick = irclib.nm_to_n(e.source())
 		msg = e.arguments()[0]
 		print "<%s%s> %s" % (nick, channel, msg)
-		thread.start_new_thread(self.twitterism, (c, msg, nick, channel))
+		thread.start_new_thread(twitter.twitterism, (c, msg, nick, channel))
 
-	# parse message, react to messages matching regex.
-	@timing
-	def twitterism(self, c, msg, nick, channel):
-		match = self.twitter_re.match(msg)
-		if (match):
-			update = match.group(1)
-			if (len(update) > 140):
-				print 'update too long: not posted.'
-				time.sleep(1) # simulate thought.
-				c.privmsg(channel, "%s: brevity is the soul of wit." % nick)
-				return
-			update = "[%s] %s" % (nick, update)
-			self.twitter_post(update)
-	
-	# HTTP POST status update.
-	@timing
-	def twitter_post(self, update):
-		headers = {}
-		auth = base64.b64encode(self.twitteruser+":"+self.twitterpass)
-		headers["Authorization"] = "Basic " + auth
-		headers["X-Twitter-Client"] = 'hah'
-		data = urllib.urlencode({"status" : update})
-		req = urllib2.Request(self.twitterurl, data, headers)
-		try:
-			print "attempting twitterpost: " + update
-			h = urllib2.urlopen(req)
-		except urllib2.HTTPError:
-			print "HTTPError :-("
-			return
-		print "probably successful."
 
 if __name__ == "__main__":
     print 'test> instantiate.'
