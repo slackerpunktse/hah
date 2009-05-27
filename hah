@@ -3,12 +3,9 @@
 import hah
 
 if __name__ == "__main__":
+    # TODO> put nick, channel & servers in config.
 	nick    = 'hah'
 	channel = '#bot.slacker.se'
 	server  = 'localhost'
-	# twitter credentials.
-	user = ''
-	pwd = ''
-
-	bot = hah.Hah(nick, channel, server, user, pwd)
+	bot = hah.Hah(nick, channel, server)
 	bot.unleash()
