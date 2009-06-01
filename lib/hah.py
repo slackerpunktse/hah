@@ -15,7 +15,7 @@ import thread, signal, yaml, base64
 class Hah(ircbot.SingleServerIRCBot):
 	def __init__(self, nick, channel, server):
 		# message matching this request are posted to twitter.
-		self.twitter_re = re.compile('^hah[,:] (.*)')
+		self.twitter_re = re.compile('^hah([,:]) (.*)')
 		self.twitterurl = "http://twitter.com/statuses/update.json"
 		self.channel = channel
 
@@ -39,13 +39,17 @@ class Hah(ircbot.SingleServerIRCBot):
 			sys.exit(1)
 
 	def print_time(self):
-		sys.stdout.write(time.asctime())
+		sys.stdout.write("%s " % time.asctime())
 
 	@timing
 	def unleash(self):
-		self.load_credentials()
 		print time.asctime()
 		print 'unleashed.'
+		try:
+			self.load_credentials()
+		except:
+			sys.stderr.write("error loading credentials.\n")
+			sys.exit(1)
 		try:
 			self.start()
 		except KeyboardInterrupt:
@@ -53,11 +57,11 @@ class Hah(ircbot.SingleServerIRCBot):
 			sys.exit(0)
 	
 	def on_heartbeat():
-	    x = time.time()
-	    print 'heartbeat> %s' % x
+		self.print_time()
+		print 'heartbeat> %s' % ('+')
     
 	def on_welcome(self, c, e):
-		print_time()
+		self.print_time()
 		print 'joining %s' % self.channel
 		c.join(self.channel)
     

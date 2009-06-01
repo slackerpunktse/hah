@@ -7,7 +7,7 @@ def timing(func):
     r = func(*arg)
     elapsed = time.time() - t0
     print '%s%s => %0.3f ms' % (func.func_name, arg, elapsed*1000.00)
-    return r  # burberry man.
+    return r
   return wrapper
 
 def metatiming(func):
