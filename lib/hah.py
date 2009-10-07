@@ -12,16 +12,17 @@ from timing import timing
 
 
 class Hah(ircbot.SingleServerIRCBot):
-    def __init__(self, nick, channel, server):
-        self.channel = channel
-
+    def __init__(self):
         # message matching this request are posted to twitter.
         self.twitter_re = re.compile('^h[ae]h([,:]) (.*)')
         self.twitterurl = "http://twitter.com/statuses/update.json"
 
+        # load configuration.
+        self.nick, self.channel, self.server = self.load_conf()
+
         # init underlying ircbot.
-        servers = [(server, 6667)]
-        ircbot.SingleServerIRCBot.__init__(self, servers, nick, 'hah!')
+        servers = [(self.server, 6667)]
+        ircbot.SingleServerIRCBot.__init__(self, servers, self.nick, 'hah!')
 
     
     # load credentials.
@@ -38,6 +39,21 @@ class Hah(ircbot.SingleServerIRCBot):
             sys.stderr.write("yaml load failed for key %s.\n" % key)
             sys.exit(1)
 
+    # load irc configuration.
+    def load_conf(self):
+        conf = 'conf/irc.yaml'
+        f = open(conf)
+        irc = yaml.load(f)
+        f.close()
+        try:
+            nick    = irc['nick']
+            channel = "#"+irc['channel']
+            server  = irc['server']
+        except KeyError, key:
+            sys.stderr.write("failed to load configuration from %s for key %s" % (conf, key))
+            sys.exit(1)
+        return nick, channel, server
+
     def print_time(self):
         sys.stdout.write("%s " % time.asctime())
 
@@ -48,6 +64,7 @@ class Hah(ircbot.SingleServerIRCBot):
         try:
             self.load_credentials()
         except:
+            # TODO: will never reach this; load_credentials does not raise.
             sys.stderr.write("error loading credentials.\n")
             sys.exit(1)
         try:
